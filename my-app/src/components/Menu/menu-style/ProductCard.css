@@ -1,0 +1,131 @@
+.product-card {
+    max-width: 350px;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: #fff;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 520px;
+    margin-left: -5px;
+    z-index: 2000;
+}
+
+.product-card-content {
+    overflow-y: auto;
+    flex: 1;
+    max-height: 800px;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    /* margin-bottom: 55px; */
+}
+
+.product-card-content::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
+.product-card-content::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+
+.product-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0 0 10px;
+}
+
+.product-image {
+    max-width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.product-size, .product-sugar {
+    margin-bottom: 15px;
+}
+
+.size-label, .sugar-label {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.size-price {
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.sugar-options {
+    display: flex;
+    margin-top: 5px;
+}
+
+.sugar-button {
+    margin-right: 5px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    color: #000;
+    cursor: pointer;
+}
+
+.sugar-button.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* ________________________________________________product card footer */
+
+.quantity-controls {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    margin-left: -5px;
+}
+
+.quantity-button {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+
+.product-price {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 95px;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    /* margin-bottom: 0px; */
+    
+}
+
+.add-to-bag-button, .place-order-button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    /* margin-top: 80px; */
+}
+
+.add-to-bag-button {
+    background-color: #007bff;
+}
+
+.place-order-button {
+    background-color: #28a745;
+}
+
+
+

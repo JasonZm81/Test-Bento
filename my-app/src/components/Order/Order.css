@@ -1,0 +1,94 @@
+
+
+.order-container {
+  position: relative;
+  padding: 0px;
+  padding-bottom: 60px;
+  font-family: Arial, sans-serif;
+}
+
+.order-title {
+  font-size: 20px; /* Set your desired font size */
+  /* Add other styles as needed */
+}
+
+.back-arrow {
+  cursor: pointer; /* Change cursor to pointer for better UX */
+  margin-right: 110px; /* Space between icon and text */
+  vertical-align: middle; /* Align icon with text */
+  margin-left: 15px;
+}
+
+.order-summary {
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.item img {
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.voucher {
+  margin: 10px 0;
+}
+
+.payment-details {
+  margin-top: 10px;
+}
+
+.warning {
+  color: red;
+}
+
+.methods label {
+  display: block;
+  margin: 5px 0;
+}
+
+.pay-button {
+  background-color: #007bff;
+  color: white;
+  padding: 13px 45px;
+  border: none;
+  /* border-radius: 5px; */
+  /* cursor: pointer; */
+  /* display: block; */
+  /* margin: 0 auto; */
+  /* position: fixed; */
+  /* bottom: 20px; */
+  /* left: 50%; */
+  /* transform: translateX(-50%); */
+  font-size: 16px;
+  font-weight: bold;
+  width: 350px;
+}
+
+.pay-button:hover {
+  background-color: #0056b3;
+}
+
+.pay-button-container {
+  background-color: rgba(255, 255, 255, 0.802);
+  padding: 20px;
+  /* color: white; */
+  /* padding: 13px 45px; */
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+  position: fixed;
+  left: -1%;
+  bottom: 0px;
+
+  width: 360px;
+}

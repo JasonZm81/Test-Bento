@@ -1,0 +1,86 @@
+.food-drink-section {
+    text-align: center;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.food-drink-section-icon {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.food-drink-section-title {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.food-drink-section-sku {
+    font-size: 14px;
+    font-weight: normal;
+    margin-top: -5px;
+}
+
+.food-drink-section-image {
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.food-drink-section-description {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #555;
+}
+
+.food-drink-section-price {
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 2px;
+    margin-bottom: -7px;
+    color: #333;
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+}
+
+.popup-content {
+    position: relative;
+    max-width: 80%;
+    margin-left: -30px;
+    margin-top: -50px;
+}
+
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: -10px;
+    background: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 3010;
+}
+
+.menu-div {
+    overflow-y: scroll; /* Enable vertical scrolling */
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: transparent transparent; /* For Firefox */
+}
+
+/* For WebKit browsers (Chrome, Safari) */
+.menu-div::-webkit-scrollbar {
+    width: 0; /* Hide scrollbar */
+    background: transparent; /* Optional: make background transparent */
+}
