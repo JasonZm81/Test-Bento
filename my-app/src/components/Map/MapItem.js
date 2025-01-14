@@ -61,13 +61,13 @@ const MapItem = () => {
                     const userMarker = L.marker([latitude, longitude], { icon: userIcon })
                         .addTo(mapRef.current);
 
-                    // Fetch the address using Nominatim API when the user marker is clicked
+                    // Fetch the Current address when userMarker is clicked (using Nominatim API)
                     userMarker.on('click', () => {
                         fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`)
                             .then(response => response.json())
                             .then(data => {
                                 if (data && data.display_name) {
-                                    setCurrentAddress(data.display_name); // Set the current address
+                                    setCurrentAddress(data.display_name); // Set the current place name
                                     const markerPopupContent = `You Are Here`; 
                                     // const markerPopupContent = `You Are Here<br>${data.display_name}`; // Update popup content with the fetched address
                                     userMarker.bindPopup(markerPopupContent); // Bind the updated content to the marker popup
@@ -85,8 +85,6 @@ const MapItem = () => {
                     // Example items (ensure unique IDs)
                     const placeItems = []; // Now an empty array
                     setItems(placeItems);
-
-
 
                     // Add other markers using the default marker icon
                     const otherLocations = placeItems; // Use placeItems as otherLocations
@@ -127,14 +125,20 @@ const MapItem = () => {
 
     useEffect(() => {
         // Fetch saved items from the database on component mount
-        fetch('http://localhost:5001/api/addresses') // Adjust the endpoint as necessary
+        fetch('http://localhost:5001/test/addresses') // Adjust the endpoint as necessary
             .then(response => response.json())
             .then(data => {
                 setSavedItems(data); // Set the saved items state
                 data.forEach(item => {
+                    // const markerPopupContent = `${item.name}<br>${item.address}`; // Update popup content with the fetched address
                     L.marker([item.lat, item.lon], { icon: itemIcon }) // Use itemIcon for saved markers
                         .addTo(mapRef.current)
-                        .bindPopup(item.name); // Bind the name to the marker popup
+                        .bindPopup(item.name) // Bind the name to the marker popup
+                        // .bindPopup(markerPopupContent); 
+                        .on('click', () => {
+                            setMarkerAddress(item.address); // Set the address of the clicked marker
+                            setShowAddressDiv(true); // Show the address div when marker is clicked
+                        });
                 });
             })
             .catch(error => {
@@ -149,7 +153,7 @@ const MapItem = () => {
         }
     }, [currentAddress]);
 
-    // Create marker combining input address and name
+    // Submit button clicked, marker created and info saved to db
     const handleAddressSubmit = () => {
         fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(inputAddress)}`)
             .then(response => response.json())
