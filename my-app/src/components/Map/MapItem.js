@@ -125,16 +125,24 @@ const MapItem = () => {
 
     useEffect(() => {
         // Fetch saved items from the database on component mount
-        fetch('http://localhost:5001/test/addresses') // Adjust the endpoint as necessary
-            .then(response => response.json())
+        fetch('https://71a0-2001-f40-970-254a-8481-ad99-4d93-bcea.ngrok-free.app/test/addresses', {
+            headers: {
+                'ngrok-skip-browser-warning': 'true' // Bypass the ngrok warning page
+            }
+        }) // Adjust the endpoint as necessary
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
             .then(data => {
+                console.log(data); // Check if data is retrieved correctly
                 setSavedItems(data); // Set the saved items state
                 data.forEach(item => {
-                    // const markerPopupContent = `${item.name}<br>${item.address}`; // Update popup content with the fetched address
                     L.marker([item.lat, item.lon], { icon: itemIcon }) // Use itemIcon for saved markers
                         .addTo(mapRef.current)
                         .bindPopup(item.name) // Bind the name to the marker popup
-                        // .bindPopup(markerPopupContent); 
                         .on('click', () => {
                             setMarkerAddress(item.address); // Set the address of the clicked marker
                             setShowAddressDiv(true); // Show the address div when marker is clicked
@@ -144,7 +152,7 @@ const MapItem = () => {
             .catch(error => {
                 console.error("Error fetching saved items: ", error);
             });
-    }, []); // Empty dependency array to run only on mount
+    }, []);
 
     // Update the currentAddress and markerAddress state when a new address is set
     useEffect(() => {
@@ -170,13 +178,18 @@ const MapItem = () => {
                         setShowAddressDiv(true); // Show the address div when marker is clicked
                     });
 
-                    // Send data to the backend
-                    fetch('http://localhost:5001/test/addresses', {
+                    // Send data to the backend db
+                    fetch('https://71a0-2001-f40-970-254a-8481-ad99-4d93-bcea.ngrok-free.app/test/addresses', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({ name: inputName, address: data[0].display_name, lat: lat, lon: lon }), // Include lat and lon
+                        body: JSON.stringify({ 
+                            name: inputName, // Ensure name is included
+                            address: data[0].display_name, // Ensure address is included
+                            lat: lat, // Ensure latitude is included
+                            lon: lon // Ensure longitude is included
+                        }), // Include lat and lon
                     })
                     .then(response => {
                         if (!response.ok) {

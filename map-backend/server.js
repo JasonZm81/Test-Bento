@@ -12,15 +12,18 @@ const PORT = process.env.PORT || 5001;
 
 // CORS configuration
 const allowedOrigins = [
-    'http://localhost:3000', // Ensure this matches your frontend URL
-    'https://your-frontend-domain.com',
-    'https://testing-75857.web.app'
+    'http://localhost:3000',
+    'http://localhost:3000/mapitem', // Ensure this matches your frontend URL
+    'https://testing-75857.web.app',
+    'https://testing-75857.web.app/mapitem',
+    'https://71a0-2001-f40-970-254a-8481-ad99-4d93-bcea.ngrok-free.app',
+    'https://71a0-2001-f40-970-254a-8481-ad99-4d93-bcea.ngrok-free.app/test/addresses'
 ];
 
 app.use(cors({
     origin: (origin, callback) => {
         // Allow requests with no origin (like mobile apps or curl requests)
-        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        if (!origin || allowedOrigins.includes(origin)) {
             callback(null, true);
         } else {
             callback(new Error('Not allowed by CORS'));
@@ -43,7 +46,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/test', { 
         console.error('MongoDB connection error:', err);
     });
 
-// API endpoint to save a new item
+// DB API endpoint to save a new item
 app.post('/api/items', async (req, res) => {
     const newItem = new Item(req.body);
     try {
@@ -56,7 +59,7 @@ app.post('/api/items', async (req, res) => {
     }
 });
 
-// API endpoint to save a new address
+// DB API endpoint to save a new address
 app.post('/test/addresses', async (req, res) => {
     const newAddress = new Address(req.body);
     try {
@@ -69,7 +72,7 @@ app.post('/test/addresses', async (req, res) => {
     }
 });
 
-// API endpoint to retrieve all items
+// DB API endpoint to retrieve all items
 app.get('/test/items', async (req, res) => {
     try {
         const items = await Item.find();
@@ -79,7 +82,7 @@ app.get('/test/items', async (req, res) => {
     }
 });
 
-// Route to get addresses
+// DB API endpoint to retrieve addresses
 app.get('/test/addresses', async (req, res) => {
     try {
         const addresses = await Address.find(); // Fetch all addresses from the database
