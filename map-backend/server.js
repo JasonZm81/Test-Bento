@@ -92,4 +92,19 @@ app.get('/test/addresses', async (req, res) => {
     }
 });
 
+app.delete('/test/addresses/:id', async (req, res) => {
+    const id = req.params.id;
+    console.log(`Attempting to delete address with ID: ${id}, print from api path`);
+    try {
+        const address = await Address.findByIdAndDelete(id);
+        if (address) {
+            res.status(200).json({ message: 'Address deleted successfully' });
+        } else {
+            res.status(404).json({ error: 'Address not found. Print frm api path' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting address' });
+    }
+});
+
 app.use('/test/addresses', addressRoutes);

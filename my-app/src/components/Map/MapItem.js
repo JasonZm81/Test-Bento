@@ -137,15 +137,29 @@ const MapItem = () => {
                 return response.json();
             })
             .then(data => {
-                console.log(data); // Check if data is retrieved correctly
+                // console.log(data); // Check if data is retrieved correctly
                 setSavedItems(data); // Set the saved items state
                 data.forEach(item => {
-                    L.marker([item.lat, item.lon], { icon: itemIcon }) // Use itemIcon for saved markers
+                    const marker = L.marker([item.lat, item.lon], { icon: itemIcon }) // Use itemIcon for saved markers
                         .addTo(mapRef.current)
-                        .bindPopup(item.name) // Bind the name to the marker popup
+                        .bindPopup(
+                            `<div>${item.name}</div>
+                            <button id="delete-button-${item.id}">Delete</button>` // Add delete button with a unique ID
+                        ) // Bind the name to the marker popup
                         .on('click', () => {
                             setMarkerAddress(item.address); // Set the address of the clicked marker
                             setShowAddressDiv(true); // Show the address div when marker is clicked
+
+                            // Add event listener for the delete button inside the marker click handler
+                            const deleteButton = document.getElementById(`delete-button-${item.id}`);
+                            if (deleteButton) {
+                                deleteButton.addEventListener('click', (e) => {
+                                    e.preventDefault(); // Prevent the popup from closing
+                                    e.stopPropagation(); // Stop the click event from bubbling up to the marker
+                                    console.log("Delete button is pressed"); // Log when delete button is pressed
+                                    handleMarkerDelete(item._id, marker); // Pass the marker to the delete function
+                                });
+                            }
                         });
                 });
             })
@@ -217,6 +231,29 @@ const MapItem = () => {
                 console.error("Error fetching address: ", error);
                 alert('Error fetching address');
             });
+    };
+
+    // Function to handle marker deletion
+    const handleMarkerDelete = async (id, marker) => {
+        console.log(`Attempting to delete address with ID: ${id}`); // Log the ID
+        const url = `https://71a0-2001-f40-970-254a-8481-ad99-4d93-bcea.ngrok-free.app/test/addresses/${id}`; // Ensure the correct backend URL
+        console.log(`Trying to DELETE at: ${url}`); // Log the full URL
+        try {
+            const response = await fetch(url, {
+                method: 'DELETE',
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            // Remove the marker from the map
+            marker.remove();
+            alert('Address deleted successfully');
+        } catch (error) {
+            console.error("Error deleting address: ", error);
+            alert('Error deleting address');
+        }
     };
 
     return (
