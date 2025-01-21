@@ -22,12 +22,55 @@ const Menu = () => {
     const navigate = useNavigate(); // Initialize useNavigate
     const { activeButton: globalActiveButton, setActiveButton: globalSetActiveButton } = useNavigation(); // Use the global state
     const [isOpen, setIsOpen] = useState(false);
-    const [itemCount, setItemCount] = useState(0);
+    const [itemCount, setItemCount] = useState(() => {
+        // Retrieve itemCount from localStorage or default to 0
+        const savedItemCount = localStorage.getItem('itemCount');
+        return savedItemCount ? parseInt(savedItemCount, 10) : 0;
+    });
     const location = useLocation(); // Get the current location
 
-    // Function to update item count
-    const updateItemCount = (quantity: number) => {
-        setItemCount(prevCount => prevCount + quantity);
+    // Array of item objects
+    const items = [
+        {
+            skuId: "1",
+            imageSrc: "https://res.cloudinary.com/drusxooph/image/upload/v1736272076/jm5xz25uyno7j9wfv55e.jpg",
+            description: "Lu-Rou Fan",
+            skuName: "卤肉饭",
+            price: "10.50",
+            icon: "🍜",
+            backgroundColor: "#faf0dc"
+        },
+        {
+            skuId: "2",
+            imageSrc: "https://res.cloudinary.com/drusxooph/image/upload/v1736272076/jm5xz25uyno7j9wfv55e.jpg",
+            description: "Super Lu-Rou Fan",
+            skuName: "Super 卤肉饭",
+            price: "20.50",
+            icon: "🍜",
+            backgroundColor: "#faf0dc"
+        },
+        {
+            skuId: "3",
+            imageSrc: "https://res.cloudinary.com/drusxooph/image/upload/v1736272076/jm5xz25uyno7j9wfv55e.jpg",
+            description: "Fan Fan",
+            skuName: "Rou Rou Fan",
+            price: "30",
+            icon: "🍜",
+            backgroundColor: "#faf0dc"
+        },
+        // Add more items as needed
+    ];
+
+    // Function to update item count and cache in localStorage. Mcm no use liap
+    const updateItemCount = (quantity: number, skuId: string, skuName: string, price: string) => {
+        // console.log(`updateItemCount here`); // Log the values to debug
+        const newCount = itemCount + quantity; // Calculate new count directly
+        setItemCount(newCount); // Update state with new count
+        localStorage.setItem('itemCount', newCount.toString()); // Cache in localStorage
+        localStorage.setItem(`itemCount_${skuId}`, newCount.toString()); // Cache SKU-specific count
+        // localStorage.setItem(`skuName_${skuId}`, skuName); // Cache SKU-specific name
+        // localStorage.setItem(`price_${skuId}`, price); // Cache SKU-specific price
+        console.log(`Updated item count in browser:: ${newCount} for ${skuName} SKU: ${skuId}`); // Log the latest quantity value
     };
 
     // Scroll to the top of the page
@@ -95,24 +138,19 @@ const Menu = () => {
                 <div className="food-drink-grid">
                     {activeTab === 'FOODS' ? (
                         <>
-                            <FoodDrinkSection 
-                                imageSrc="https://res.cloudinary.com/drusxooph/image/upload/v1736272076/jm5xz25uyno7j9wfv55e.jpg" 
-                                description="Lu-Rou Fan" 
-                                sku_name="卤肉饭" 
-                                price="8.70" 
-                                icon="🍜" 
-                                onAddToBag={updateItemCount}
-                                backgroundColor="#faf0dc" 
-                            />
-                            <FoodDrinkSection 
-                                imageSrc="https://res.cloudinary.com/drusxooph/image/upload/v1736272076/jm5xz25uyno7j9wfv55e.jpg" 
-                                description="Lu-Rou Fan" 
-                                backgroundColor="#e8f5e9" 
-                                sku_name="卤肉饭" 
-                                price="RM8.70" 
-                                icon="🍜" 
-                                onAddToBag={updateItemCount} // Pass the function
-                            />
+                            {items.map((item) => (
+                                <FoodDrinkSection 
+                                    key={item.skuId}
+                                    sku_id={item.skuId} 
+                                    imageSrc={item.imageSrc} 
+                                    description={item.description} 
+                                    sku_name={item.skuName} 
+                                    price={item.price} 
+                                    icon={item.icon} 
+                                    onAddToBag={(quantity) => updateItemCount(quantity, item.skuId, item.skuName, item.price)}
+                                    backgroundColor={item.backgroundColor} 
+                                />
+                            ))}
                             <FoodDrinkSection title="PICKUP" icon="🍔" description="Ready in 15 mins" backgroundColor="#faf0dc" />
                             <FoodDrinkSection title="DINE IN" icon="🥡" description="Table service" backgroundColor="#e8f5e9" />
                             <FoodDrinkSection title="PICKUP" icon="🍔" description="Ready in 15 mins" backgroundColor="#faf0dc" />
@@ -159,7 +197,5 @@ const Menu = () => {
         </div>
     );
 };
-
-
 
 export default Menu;

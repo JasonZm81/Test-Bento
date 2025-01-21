@@ -4,18 +4,28 @@ import { db } from '../../firebaseConfig.ts';
 import { collection, addDoc, deleteDoc, doc } from 'firebase/firestore';
 import './menu-style/FoodAndDrinks.css';
 
-// Pass data props frm 
+// Pass data props 
 interface FoodDrinkSectionProps {
-    icon: string;
-    description: string;
-    backgroundColor: string;
-    sku_name: string;
-    price: string;
+    sku_id: string; // Add sku_id to the props
     imageSrc: string;
-    onAddToBag: (quantity: number) => void;
+    description: string;
+    sku_name?: string; // Optional if not always provided
+    price?: number; // Optional if not always provided
+    icon?: string; // Optional if not always provided
+    onAddToBag?: (quantity: number, sku_id: string) => void; // Optional if not always provided
+    backgroundColor?: string; // Optional if not always provided
 }
 
-const FoodDrinkSection: React.FC<FoodDrinkSectionProps> = ({ icon, description, backgroundColor, sku_name, price, imageSrc, onAddToBag }) => {
+const FoodDrinkSection: React.FC<FoodDrinkSectionProps> = ({ 
+    sku_id,
+    icon, 
+    description, 
+    backgroundColor, 
+    sku_name, 
+    price, 
+    imageSrc, 
+    onAddToBag 
+}) => {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [isItemAdded, setIsItemAdded] = useState(false);
     const [quantity, setQuantity] = useState(0);
@@ -27,7 +37,7 @@ const FoodDrinkSection: React.FC<FoodDrinkSectionProps> = ({ icon, description, 
 
     const closePopup = () => {
         if (isItemAdded) {
-            console.log(`Quantity: ${quantity}`);
+            console.log(`closing Popup, Quantity: ${quantity}`);
         }
         setIsPopupOpen(false);
     };
@@ -35,8 +45,7 @@ const FoodDrinkSection: React.FC<FoodDrinkSectionProps> = ({ icon, description, 
     const handleAddToBag = (quantity: number) => {
         setIsItemAdded(true);
         setQuantity(quantity);
-        onAddToBag(quantity);
-        
+        onAddToBag(quantity, sku_id);
     };
 
     return (
@@ -49,15 +58,16 @@ const FoodDrinkSection: React.FC<FoodDrinkSectionProps> = ({ icon, description, 
                 onClick={handleImageClick} 
             />
             <div className="food-drink-section-description">{description}</div>
-            <div className="food-drink-section-price">{price}</div>
+            <div className="food-drink-section-price">RM {price?.toString()}</div>
 
             {/* Display ProductCard */}
             {isPopupOpen && (
                 <div className="popup">            
                     <div className="popup-content">
                         <ProductCard 
-                            sku_name={sku_name} 
-                            price={price} 
+                            sku_id={sku_id}
+                            sku_name={sku_name || ''}
+                            price={price !== undefined ? price.toString() : ''}
                             imageSrc={imageSrc} 
                             onAddToBag={handleAddToBag}
                         />

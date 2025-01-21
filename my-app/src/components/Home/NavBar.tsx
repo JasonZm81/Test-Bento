@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faUtensils, faClipboardList, faUser, faShoppingBag } from '@fortawesome/free-solid-svg-icons';
+import PriceCheckoutSlide from './PriceCheckoutSlide.tsx';
 
 interface NavBarProps {
     activeButton: string;
@@ -11,6 +12,27 @@ interface NavBarProps {
 }
 
 const NavBar: React.FC<NavBarProps> = ({ activeButton, setActiveButton, navigate, itemCount }) => {
+    const [isCheckoutVisible, setCheckoutVisible] = useState(false);
+    const checkoutRef = useRef<HTMLDivElement | null>(null); // Reference for the checkout slide
+
+    const toggleCheckout = () => {
+        setCheckoutVisible(!isCheckoutVisible);
+    };
+
+    // Close checkout when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (checkoutRef.current && !checkoutRef.current.contains(event.target as Node)) {
+                setCheckoutVisible(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
     return (
         <div style={{
             position: 'fixed',
@@ -34,7 +56,7 @@ const NavBar: React.FC<NavBarProps> = ({ activeButton, setActiveButton, navigate
                 boxShadow: '0 4px 25px rgba(0, 0, 0, 0.15)',
                 position: 'relative',
                 transition: 'background-color 0.3s ease',
-            }}>
+            }} onClick={toggleCheckout}>
                 <div className="checkout-content" style={{ display: 'flex', alignItems: 'center' }}>
                     <FontAwesomeIcon icon={faShoppingBag} className="checkout-icon" style={{ marginRight: '10px', marginTop: '-5px', color: '#8B0000', fontSize: '30px' }} />
                     <div className="checkout-item-count" style={{
@@ -64,11 +86,17 @@ const NavBar: React.FC<NavBarProps> = ({ activeButton, setActiveButton, navigate
                     fontSize: '16px',
                     transition: 'background-color 0.3s ease',
                     marginRight: '-25px',
-                }}>
+                }} onClick={() => navigate('/order')}>
                     CHECK OUT
                 </button>
             </div>
-            )} 
+            )}
+            {/* Price Checkout Slide Window */}
+            {isCheckoutVisible && (
+                <div ref={checkoutRef}>
+                    <PriceCheckoutSlide itemCount={itemCount} navigate={navigate} onClick={() => {}} />
+                </div>
+            )}
             {/* Navigation Bar */}
             <div style={{
                 display: 'flex',
