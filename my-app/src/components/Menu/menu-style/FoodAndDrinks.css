@@ -75,12 +75,11 @@
 
 .menu-div {
     overflow-y: scroll; /* Enable vertical scrolling */
-    scrollbar-width: thin; /* For Firefox */
+    scrollbar-width: none; /* For Firefox */
     scrollbar-color: transparent transparent; /* For Firefox */
 }
 
 /* For WebKit browsers (Chrome, Safari) */
 .menu-div::-webkit-scrollbar {
-    width: 0; /* Hide scrollbar */
-    background: transparent; /* Optional: make background transparent */
+    display: none;
 }

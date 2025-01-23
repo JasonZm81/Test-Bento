@@ -30,9 +30,9 @@ const Menu = () => {
     const location = useLocation(); // Get the current location
 
     // Array of item objects
-    const items = [
+    const items_foods = [
         {
-            skuId: "1",
+            skuId: "F1",
             imageSrc: "https://res.cloudinary.com/drusxooph/image/upload/v1736272076/jm5xz25uyno7j9wfv55e.jpg",
             description: "Lu-Rou Fan",
             skuName: "卤肉饭",
@@ -41,7 +41,7 @@ const Menu = () => {
             backgroundColor: "#faf0dc"
         },
         {
-            skuId: "2",
+            skuId: "F2",
             imageSrc: "https://res.cloudinary.com/drusxooph/image/upload/v1736272076/jm5xz25uyno7j9wfv55e.jpg",
             description: "Super Lu-Rou Fan",
             skuName: "Super 卤肉饭",
@@ -50,7 +50,7 @@ const Menu = () => {
             backgroundColor: "#faf0dc"
         },
         {
-            skuId: "3",
+            skuId: "F3",
             imageSrc: "https://res.cloudinary.com/drusxooph/image/upload/v1736272076/jm5xz25uyno7j9wfv55e.jpg",
             description: "Fan Fan",
             skuName: "Rou Rou Fan",
@@ -58,8 +58,58 @@ const Menu = () => {
             icon: "🍜",
             backgroundColor: "#faf0dc"
         },
+        {
+            skuId: "F4",
+            imageSrc: "https://res.cloudinary.com/drusxooph/image/upload/v1736272076/jm5xz25uyno7j9wfv55e.jpg",
+            description: "Super Lu-Rou Fan",
+            skuName: "番薯饭",
+            price: "22.50",
+            icon: "🍜",
+            backgroundColor: "#faf0dc"
+        },
+        {
+            skuId: "F5",
+            imageSrc: "https://res.cloudinary.com/drusxooph/image/upload/v1736272076/jm5xz25uyno7j9wfv55e.jpg",
+            description: "Fan Fan",
+            skuName: "好玩 Fun",
+            price: "32",
+            icon: "🍜",
+            backgroundColor: "#faf0dc"
+        },
         // Add more items as needed
     ];
+
+        // Array of item objects
+        const items_drinks = [
+            {
+                skuId: "D1",
+                imageSrc: "https://res.cloudinary.com/drusxooph/image/upload/v1736272076/jm5xz25uyno7j9wfv55e.jpg",
+                description: "Lu-Rou Fan",
+                skuName: "Teh Beng",
+                price: "2.50",
+                icon: "🥤",
+                backgroundColor: "#faf0dc"
+            },
+            {
+                skuId: "D2",
+                imageSrc: "https://res.cloudinary.com/drusxooph/image/upload/v1736272076/jm5xz25uyno7j9wfv55e.jpg",
+                description: "Super Lu-Rou Fan",
+                skuName: "Kopi Beng",
+                price: "2.50",
+                icon: "🥤",
+                backgroundColor: "#faf0dc"
+            },
+            {
+                skuId: "D3",
+                imageSrc: "https://res.cloudinary.com/drusxooph/image/upload/v1736272076/jm5xz25uyno7j9wfv55e.jpg",
+                description: "Fan Fan",
+                skuName: "Milo Dinosaur",
+                price: "30",
+                icon: "🥤",
+                backgroundColor: "#faf0dc"
+            },
+            // Add more items as needed
+        ];
 
     // Function to update item count and cache in localStorage. Mcm no use liap
     const updateItemCount = (quantity: number, skuId: string, skuName: string, price: string) => {
@@ -121,7 +171,7 @@ const Menu = () => {
 
                 {/* Foods and Drinks buttons */}
                 <div className="tab-buttons">
-                    {['FOODS', 'DRINKS'].map((tab) => (
+                    {['FOODS', 'DRINKS', 'SIDE DISHES'].map((tab) => (
                         <div
                             key={tab}
                             onClick={() => {
@@ -138,7 +188,7 @@ const Menu = () => {
                 <div className="food-drink-grid">
                     {activeTab === 'FOODS' ? (
                         <>
-                            {items.map((item) => (
+                            {items_foods.map((item) => (
                                 <FoodDrinkSection 
                                     key={item.skuId}
                                     sku_id={item.skuId} 
@@ -151,36 +201,27 @@ const Menu = () => {
                                     backgroundColor={item.backgroundColor} 
                                 />
                             ))}
-                            <FoodDrinkSection title="PICKUP" icon="🍔" description="Ready in 15 mins" backgroundColor="#faf0dc" />
-                            <FoodDrinkSection title="DINE IN" icon="🥡" description="Table service" backgroundColor="#e8f5e9" />
-                            <FoodDrinkSection title="PICKUP" icon="🍔" description="Ready in 15 mins" backgroundColor="#faf0dc" />
-                            <FoodDrinkSection title="DINE IN" icon="🥡" description="Table service" backgroundColor="#e8f5e9" />
-                            <FoodDrinkSection title="PICKUP" icon="🍔" description="Ready in 15 mins" backgroundColor="#faf0dc" />
-                            <FoodDrinkSection title="DINE IN" icon="🥡" description="Table service" backgroundColor="#e8f5e9" />
-                            <FoodDrinkSection title="PICKUP" icon="🍔" description="Ready in 15 mins" backgroundColor="#faf0dc" />
-                            <FoodDrinkSection title="DINE IN" icon="🥡" description="Table service" backgroundColor="#e8f5e9" />
-                            <FoodDrinkSection title="PICKUP" icon="🍔" description="Ready in 15 mins" backgroundColor="#faf0dc" />
-                            <FoodDrinkSection title="DINE IN" icon="🥡" description="Table service" backgroundColor="#e8f5e9" />
-                            <FoodDrinkSection title="PICKUP" icon="🍔" description="Ready in 15 mins" backgroundColor="#faf0dc" />
-                            <FoodDrinkSection title="DINE IN" icon="🥡" description="Table service" backgroundColor="#e8f5e9" />
-                            <FoodDrinkSection title="PICKUP" icon="🍔" description="Ready in 15 mins" backgroundColor="#faf0dc" />
-                            <FoodDrinkSection title="DINE IN" icon="🥡" description="Table service" backgroundColor="#e8f5e9" />
-                            <FoodDrinkSection title="PICKUP" icon="🍔" description="Ready in 15 mins" backgroundColor="#faf0dc" />
-                            <FoodDrinkSection title="DINE IN" icon="🥡" description="Table service" backgroundColor="#e8f5e9" />
-                            <FoodDrinkSection title="PICKUP" icon="🍔" description="Ready in 15 mins" backgroundColor="#faf0dc" />
-                            <FoodDrinkSection title="DINE IN" icon="🥡" description="Table service" backgroundColor="#e8f5e9" />
-                            <FoodDrinkSection title="PICKUP" icon="🍔" description="Ready in 15 mins" backgroundColor="#faf0dc" />
-                            <FoodDrinkSection title="DINE IN" icon="🥡🥡🥡" description="Table service" backgroundColor="#e8f5e9" />
-                            <FoodDrinkSection title="PICKUP" icon="🍔" description="Ready in 15 mins" backgroundColor="#faf0dc" />
-                            <FoodDrinkSection title="DINE IN" icon="🥡" description="Table service" backgroundColor="#e8f5e9" />
-
-                            {/* Add more sections as needed */}
+                        </>
+                    ) : activeTab === 'DRINKS' ? (
+                        <>
+                            {items_drinks.map((item) => (
+                                <FoodDrinkSection 
+                                    key={item.skuId}
+                                    sku_id={item.skuId} 
+                                    imageSrc={item.imageSrc} 
+                                    description={item.description} 
+                                    sku_name={item.skuName} 
+                                    price={item.price} 
+                                    icon={item.icon} 
+                                    onAddToBag={(quantity) => updateItemCount(quantity, item.skuId, item.skuName, item.price)}
+                                    backgroundColor={item.backgroundColor} 
+                                />
+                            ))}
                         </>
                     ) : (
                         <>
-                            <FoodDrinkSection title="COLD DRINKS" icon="🥤" description="Refreshing options" backgroundColor="#e3f2fd" />
-                            <FoodDrinkSection title="HOT DRINKS" icon="☕" description="Perfect brew" backgroundColor="#fff3e0" />
-                            {/* Add more sections as needed */}
+                            <FoodDrinkSection title="SIDE DISHES" icon="🍟" description="Tasty sides" backgroundColor="#f0e68c" />
+                            {/* Add more side dish sections as needed */}
                         </>
                     )}
                 </div>

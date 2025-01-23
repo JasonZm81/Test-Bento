@@ -46,6 +46,7 @@ const FoodDrinkSection: React.FC<FoodDrinkSectionProps> = ({
         setIsItemAdded(true);
         setQuantity(quantity);
         onAddToBag(quantity, sku_id);
+        closePopup();
     };
 
     return (

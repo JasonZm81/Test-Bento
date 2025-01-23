@@ -1,29 +1,109 @@
 .checkout-window {
     position: fixed;
-    bottom: 28.2%;
+    /* Start from the middle of the page - standard */
+    bottom: 40%; 
     left: 0;
-    width: 100%;
+    width: 97% !important; /* Adjust the width as needed */
+     /*Extend to the bottom of the page*/  
+    height: 50vh;
     background-color: #fff;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease;
-    transform: translateY(70%);
-    z-index: 2000;
+    transform: translateY(70%); /* Ensure it is visible */
+    z-index: 1000;
+    max-height: 70vh; /* Set a maximum height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border-radius: 20px 20px 0 0 !important; /* Add rounded corners to the top */
+}
+
+.checkout-window1 {
+    position: fixed;
+    bottom: 25.8%; 
+    left: 0;
+    width: 97% !important; /* Adjust the width as needed */
+    /* height: 50vh; */
+    background-color: #fff;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    transform: translateY(70%); /* Ensure it is visible */
+    z-index: 1000;
+    max-height: 70vh; /* Set a maximum height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border-radius: 20px 20px 0 0; /* Add rounded corners to the top */
+}
+
+.checkout-window2 {
+    position: fixed;
+    bottom: 32.8%; 
+    left: 0;
+    width: 97% !important; /* Adjust the width as needed */
+    /* height: 50vh; */
+    background-color: #fff;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    transform: translateY(70%); /* Ensure it is visible */
+    z-index: 1000;
+    max-height: 70vh; /* Set a maximum height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border-radius: 20px 20px 0 0; /* Add rounded corners to the top */
+}
+
+.checkout-window3 {
+    position: fixed;
+    top: 5.3%; 
+    left: 0;
+    width: 97% !important;  /* Adjust the width as needed */
+    /* height: 50vh; */
+    background-color: #fff;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    transform: translateY(70%); /* Ensure it is visible */
+    z-index: 1000;
+    max-height: 70vh; /* Set a maximum height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border-radius: 20px 20px 0 0; /* Add rounded corners to the top */
 }
 
 .slide-up {
     transform: translateY(50%);
 }
 
+/* .slide-down {
+    animation: slideDown 0.5s ease-out forwards;
+} */
+
+/* @keyframes slideDown { */
+    /* from { */
+        /* Adjust this value to control the starting position */
+        /* transform: translateY(90%);  */
+    /* } */
+    /* to { */
+        /* transform: translateY(50%); */
+    /* } */
+/* } */
+
+
+.item-container-header {
+    padding-left: 10px;
+    padding: 3px;
+    position: sticky; /* Make the item-container sticky */
+    top: 0; /* Stick to the top */
+    background-color: #fff; /* Ensure background color matches */
+    z-index: 1001; /* Ensure it stays above other content */
+}
+
 .item-container {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+    padding-left: 0px;
+    padding-top: 10px;
 }
 
 .item-image {
     width: 80px;
     height: 80px;
-    margin-right: 10px;
+    margin-right: 0px;
 }
 
 .item-text {
@@ -34,17 +114,39 @@
     margin-bottom: 0px;
 }
 
-.quantity-container {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 10px;
+.item-quantity-controls {
+    display: flex; /* Align items in a row */
+    align-items: center; /* Vertically center the items */
+    justify-content: flex-start; /* Align items to the start */
+    margin-left: 180px; /* Shift the row to the right */
 }
 
-.move-right {
-    margin-left: 280px; /* Adjust the value as needed */
+.item-quantity-controls button {
+    margin: 0 5px; /* Add space between the buttons and the quantity */
 }
 
-.slide-right {
-    padding-left: 15px; /* Adjust the value as needed */
+.scrollable {
+    max-height: 400px; /* Ensure this is set to allow scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+    scrollbar-width: none; /* Firefox */
+}
+
+.scrollable::-webkit-scrollbar {
+    display: none; /* WebKit browsers */
+}
+
+.close-button {
+    background-color: transparent;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 5px;
+    margin-right: 10px; /* Add right margin */
+    padding: 5px;
+    transition: color 0.3s ease;
+}
+
+.close-button:hover {
+    color: #0056b3;
 }

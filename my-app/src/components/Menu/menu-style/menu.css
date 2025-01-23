@@ -5,7 +5,14 @@
     margin: 0 auto;
     padding: 0 0px;
     background-color: #8B0000; /* Dark red background */
+    overflow: hidden; /* Hide the scrollbar */
+    scrollbar-width: none; /* Firefox */
 }
+
+.menu-container::-webkit-scrollbar {
+    display: none; /* WebKit browsers */
+}
+
 
 .menu-space {
     height: 20px;
@@ -26,6 +33,12 @@
     margin-right: auto;
     width: 80%;
     margin-top: 0; /* Adjusted marginTop to 0 */
+    overflow: hidden; /* Hide the scrollbar */
+    scrollbar-width: none; /* Firefox */
+}
+
+.menu-div::-webkit-scrollbar {
+    display: none; /* WebKit browsers */
 }
 
 .search-bar {

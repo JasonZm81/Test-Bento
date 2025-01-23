@@ -17,18 +17,17 @@
     overflow-y: auto;
     flex: 1;
     max-height: 800px;
-    scrollbar-width: thin;
-    scrollbar-color: transparent transparent;
-    /* margin-bottom: 55px; */
+    scrollbar-width: none; /* Firefox */
 }
 
+
 .product-card-content::-webkit-scrollbar {
-    width: 0;
-    background: transparent;
+    display: none;
 }
 
 .product-card-content::-webkit-scrollbar-thumb {
     background: transparent;
+    display: none;
 }
 
 .product-title {
